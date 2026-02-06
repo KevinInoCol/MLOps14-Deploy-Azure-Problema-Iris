@@ -8,10 +8,12 @@ CORS(app)
 model = pickle.load(open("model.pkl", "rb"))
 names = pickle.load(open("names.pkl", "rb"))
 
+# Primer endpoint
 @app.route("/")
 def home():
     return render_template("index.html")
 
+# Segundo endpoint
 @app.route("/predict", methods=["POST"])
 def predict():
     features = [float(x) for x in request.form.values()]
@@ -20,6 +22,7 @@ def predict():
     output = names[pred[0]]
     return render_template("index.html", prediction_text="Iris " + output)
 
+# Tercer endpoint
 @app.route("/api", methods=["POST"])
 def results():
     data = request.get_json(force=True)
